@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokéDex Interativa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header-wrapper">
+        <div class="container search-bar-wrapper">
+            <h1>PokéAPI Search</h1>
+            <div class="search-container">
+                <input type="text" id="pokemon-input" placeholder="Nome ou ID do Pokémon">
+                <button id="search-button">Buscar</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-wrapper">
+        
+        <div class="detail-panel"> 
+            
+            <div class="details-wrapper"> 
+                <h2>Detalhes do Pokémon</h2>
+                <div id="pokemon-info" class="pokemon-card active-details">
+                    <p style="text-align: center;">Clique em um Pokémon na lista para ver os detalhes aqui!</p>
+                </div>
+            </div>
+
+            <div class="history-panel"> 
+                <div class="search-history-wrapper">
+                    <h2>Histórico de Buscas</h2>
+                    <ul id="history-list"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="pokemon-list-wrapper">
+                <h1>Lista de Pokémon</h1>
+                <div id="pokemon-list">
+                    </div>
+                <button id="load-more-button">Carregar Mais</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

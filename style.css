@@ -1,0 +1,329 @@
+/* RESET UNIVERSAL */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px; 
+    overflow-y: auto; 
+}
+
+/* === 1. TOP SECTION: BARRA DE PESQUISA === */
+.header-wrapper {
+    width: 95%;
+    max-width: 1400px; 
+    margin-bottom: 20px; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-bar-wrapper {
+    background-color: #ffffff;
+    padding: 20px; 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.search-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 0; 
+}
+
+/* === 2. CONTEÚDO PRINCIPAL (2 COLUNAS AGORA) === */
+.main-wrapper {
+    display: flex;
+    gap: 30px; 
+    width: 95%; 
+    max-width: 1400px; 
+    align-items: flex-start; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* === COLUNA ESQUERDA: DETALHES + HISTÓRICO (Verticalmente Empilhados) === */
+.detail-panel {
+    flex-shrink: 0; 
+    width: 350px; 
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+}
+
+/* O .history-panel agora é apenas um wrapper interno e não um painel flex separado */
+.history-panel {
+    flex-shrink: 0; 
+    width: 100%; 
+}
+
+/* === COLUNA CENTRAL: LISTA DE POKÉMON (Expansível) === */
+.content-area {
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+    margin: 0; 
+}
+
+/* Estilo base para os "cards" (aplica fundo/sombra) */
+.container {
+    padding: 0; 
+    background-color: transparent;
+    box-shadow: none;
+    text-align: center;
+}
+
+/* Aplica o fundo e sombra nos 3 wrappers principais (Lista, Detalhes e Histórico) */
+.pokemon-list-wrapper, .search-history-wrapper, .details-wrapper { 
+    background-color: #ffffff;
+    padding: 20px; 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+/* === CORREÇÃO: HISTÓRICO ROLÁVEL === */
+.search-history-wrapper {
+    max-height: 500px; 
+    overflow-y: auto; 
+}
+
+/* === ESTILOS GERAIS === */
+h1, h2 {
+    color: #cc0000; 
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* NOVO ESTILO: Título Principal H1 - APENAS DENTRO DO WRAPPER DE PESQUISA */
+.search-bar-wrapper h1 {
+    font-size: 48px; 
+    font-weight: bold;
+    letter-spacing: 2px; 
+    color: #ffde00; 
+    text-shadow: 
+        -2px -2px 0 #3b4cca,
+        2px -2px 0 #cc0000,
+        -2px 2px 0 #cc0000,
+        2px 2px 0 #cc0000;
+    margin-top: 0;
+    margin-bottom: 25px; 
+}
+
+h2 {
+    color: #005fcc; 
+    font-size: 20px;
+}
+
+#pokemon-input { 
+    flex-grow: 1; 
+    padding: 10px; 
+    border: 2px solid #ccc; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* ESTILO DE FOCO ATUALIZADO: Remove o azul e usa um tom de vermelho/sombra */
+#pokemon-input:focus {
+    outline: none; 
+    border-color: #cc0000; 
+    box-shadow: 0 0 5px rgba(204, 0, 0, 0.7); 
+}
+
+#search-button { padding: 10px 15px; background-color: #3b4cca; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: background-color 0.3s; }
+#search-button:hover { background-color: #2a3c9e; }
+
+/* Estilo Base para Cards */
+.pokemon-card {
+    border: 1px solid #ddd; padding: 15px; border-radius: 8px; min-height: 150px; transition: all 0.4s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #ffffff; height: 100%; 
+}
+
+/* ESTILO PARA O CARD DE DETALHES (#pokemon-info) */
+#pokemon-info.pokemon-card.active-details {
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    text-align: left; 
+    height: auto; 
+    min-height: 250px; 
+    width: 100%; 
+    margin: 0;
+    padding: 0; 
+}
+#pokemon-info.pokemon-card.active-details h2 { text-transform: capitalize; margin-top: 0; font-size: 24px; }
+#pokemon-info.pokemon-card.active-details .detail-img { max-width: 150px; height: auto; display: block; margin: 10px auto; }
+
+/* === LISTA DE POKÉMON (5 COLUNAS) === */
+#pokemon-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 20px; 
+}
+#load-more-button { padding: 10px 15px; background-color: #3b4cca; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 20px; width: 100%; transition: background-color 0.3s; }
+#load-more-button:hover { background-color: #2a3c9e; }
+
+/* === HISTÓRICO === */
+#history-list { list-style: none; margin-top: 10px; padding: 0; text-align: center; }
+#history-list li { display: block; margin: 5px 0; }
+#history-list a { text-decoration: none; color: #3e9cdf; transition: color 0.3s; cursor: pointer; }
+#history-list a:hover { color: #005fcc; }
+
+/* Demais estilos de list item, contraste e stats bars */
+.pokemon-card.list-item { cursor: pointer; background-color: #f9f9f9; }
+.pokemon-card.list-item:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); }
+.pokemon-card.list-item img { max-width: 80px; height: auto; margin: 5px 0; display: block; }
+.pokemon-card h3 { text-transform: capitalize; margin-top: 5px; color: #333; }
+
+/* Estilo do botão de fechar, que será controlado via JS */
+.close-details-button { margin-top: 15px; padding: 8px 15px; background-color: #cc0000; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; transition: background-color 0.3s; display: block; width: 100%; }
+.close-details-button:hover { background-color: #a30000; }
+
+/* === ESTILOS DAS BARRAS DE ESTATÍSTICAS === */
+.stats-container { 
+    margin-top: 15px; 
+    padding-top: 10px; 
+    position: relative; 
+}
+/* Linha divisória antes das estatísticas */
+.stats-container::before { 
+    content: ''; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 1px; 
+    background-color: currentColor; /* Usa a cor do texto pai para contraste */
+    opacity: 0.2; 
+}
+
+.stats-container h3 { 
+    text-align: center; 
+    font-size: 16px; 
+    margin-bottom: 10px; 
+    color: inherit !important; 
+}
+
+.stat-item { 
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 5px; 
+    font-size: 14px; 
+    color: inherit; 
+}
+
+.stat-name { 
+    flex-basis: 70px; 
+    text-transform: capitalize; 
+    font-weight: bold; 
+    margin-right: 10px; 
+    color: inherit; 
+}
+
+.progress-bar-container { 
+    flex-grow: 1; 
+    /* O background será definido pelas classes de contraste (.light-text / .dark-text) */
+    border-radius: 2px; 
+    height: 10px; 
+    overflow: hidden; 
+    margin-right: 5px; 
+}
+
+.progress-bar { 
+    height: 100%; 
+    background-color: currentColor; 
+    transition: width 0.5s ease-out; 
+}
+
+.stat-value { 
+    width: 30px; 
+    text-align: right; 
+    font-weight: bold; 
+    flex-shrink: 0; 
+    color: inherit; 
+}
+
+/* ======================================================= */
+/* === CORREÇÃO DE CONTRASTE: ESTILOS CONSOLIDADOS === */
+/* ======================================================= */
+
+/* TEXTO CLARO (Para fundos escuros) - Força a cor branca em tudo que for texto */
+.light-text, 
+.light-text h2, 
+.light-text p, 
+.light-text p strong, 
+.light-text h3,
+.light-text .stat-name,
+.light-text .stat-value {
+    color: #fff !important; 
+}
+.light-text .progress-bar-container { 
+    background-color: rgba(255, 255, 255, 0.3) !important; 
+}
+
+
+/* TEXTO ESCURO (Para fundos claros) - Força a cor escura em tudo que for texto */
+.dark-text, 
+.dark-text h2, 
+.dark-text p, 
+.dark-text p strong, 
+.dark-text h3,
+.dark-text .stat-name,
+.dark-text .stat-value {
+    color: #333 !important; 
+}
+.dark-text .progress-bar-container { 
+    background-color: rgba(0, 0, 0, 0.1) !important; 
+}
+
+
+/* ======================================================= */
+/* Media Queries (Responsividade) */
+/* ======================================================= */
+@media (max-width: 1400px) {
+    #pokemon-list { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 1200px) {
+    .main-wrapper { flex-wrap: wrap; }
+    .detail-panel { 
+        width: 350px; 
+    }
+    .content-area { 
+        flex-grow: 1; 
+    }
+    #pokemon-list { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 992px) {
+    .main-wrapper { flex-wrap: wrap; }
+    .detail-panel {
+        width: 100%; 
+        order: 1;
+        max-width: 600px; 
+    }
+    .content-area { 
+        width: 100%; 
+        order: 2;
+    }
+    #pokemon-list { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+    .main-wrapper { flex-direction: column; align-items: center; gap: 20px; }
+    .header-wrapper, .main-wrapper { 
+        width: 90%; 
+        margin-left: initial;
+        margin-right: initial;
+    }
+    .detail-panel, .content-area { width: 100%; max-width: 500px; }
+    #pokemon-list { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+    #pokemon-list { grid-template-columns: 1fr; }
+}
